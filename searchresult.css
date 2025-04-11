@@ -1,0 +1,345 @@
+body{
+    background-color: rgb(78, 79, 235);
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+header{
+    background-color: black;
+    margin: 0px;
+    margin-right: 0;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+header nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+header nav ul{
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    margin-right: 40px;
+}
+header nav ul li{
+    margin: 10px;
+    border-radius: 100px;
+    background-color: rgb(61, 61, 61);
+}
+header nav ul li a{
+    margin: 10px;
+    padding: 0px;
+    display: block;
+}
+h1.logo a{
+    background-image: url("logo.png");
+    background-size: 100px;
+    background-repeat: no-repeat;
+    display: block;
+    margin-right: 2%;
+    text-indent: 120px;
+    list-style-type: none;
+    text-decoration: none;
+    color: inherit;
+    height: 65px;
+    width: 100px;
+}
+nav{
+    margin-left: auto;
+}
+nav ul{
+    display: flex;
+    flex-direction: row;
+    margin-right: 2%;
+}
+nav ul a{
+    list-style-type: none;
+    text-decoration: none;
+    color: inherit;
+}
+li{
+    margin-right: 2%;
+    display: inline-block;
+}
+form[name="searching"] {
+    margin-left: 30%;
+    margin-right: auto;
+}
+.searchcontainer{
+    display: flex;
+    align-items: center;
+}
+.search{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+.search-input{
+    background-color: rgb(61, 61, 61);
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    width: 100%;
+    min-width: 400px;
+    height: 50px;
+}
+::placeholder{
+    color: white;
+}
+.main.section{
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+}
+.side{
+    /*background-color: rgb(6, 143, 255);*/
+    background-color: black;
+    margin: 5px;
+    width: 20%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.side.right{
+    order: 1;
+}
+.side.right nav{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+.side.right nav ul{
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+    padding: 0px;
+}
+.side.right nav ul li{
+    margin: 10px;
+    background-color: rgb(61, 61, 61);
+}
+.side.right nav ul li a{
+    margin: 10px;
+    padding: 0px;
+    display: block;
+}
+.main.content{
+    /*background-color: rgb(6, 143, 255);*/
+    background-color: black;
+    margin: 5px;
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+}
+footer{
+    background-color: black;
+    height: 40px;
+    margin: 0;
+    margin-bottom: 0px;
+    width: 100%;
+}
+.filtering{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 20%;
+    margin: 10px;
+}
+.filtering h1{
+    margin: 10px;
+    border:1px solid white;
+    padding: 10px;
+}
+.filtering label{
+    margin: 10px;
+    border:1px solid white;
+    padding: 10px;
+}
+.searchResults{
+    width: 80%;
+    margin-left: auto;
+}
+.results{
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+    border:2px solid gray;
+}
+.cover {
+    width: 20%;
+    display: block;
+}
+.wholeDetails{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.nameDetails{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.details{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+}
+.name{
+    width: 100%;
+}
+.artist{
+    
+}
+.date{
+
+}
+.tracks{
+
+}
+.tags{
+    padding: 20px;
+}
+.userNum{
+    padding: 20px;
+}
+@media (max-width: 1300px){
+    header{
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    form[name="searching"] {
+        margin: auto;
+    }
+    header nav{
+        margin: 10px auto;
+    }
+    .searchcontainer{
+        margin: 10px auto;
+        width: 80%;
+    }
+    h1.logo {
+        margin: 10px auto;
+    }
+}
+@media (max-width: 915px){
+    .side.right{
+        display: none;
+    }
+}
+@media (max-width: 730px){
+    .search-input{
+        min-width: 300px;
+    }
+}
+
+/*entity details css*/
+
+.song-details-containter {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    margin: 20px;
+}
+
+.additional-information-container {
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+}
+
+.cover-art {
+    width: 400px; height: 400px;
+    border: 10px rgb(78, 79, 235) solid;
+}
+
+.song-description {
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+    font-size: 32pt;
+    font-weight: bold;
+    text-align: left;
+}
+
+.album-artist-names {
+    font-size: 16pt;
+    font-weight: normal;
+    margin-top: 10px;
+}
+
+.track-details {
+    font-size: 12pt;
+    font-weight: normal;
+    margin-top: 20px;
+}
+
+.recommended-tracks-container {
+    margin: 100px;
+}
+
+/* Notes below is new additional css just for testing */
+.song-tag {
+    font-size: 12pt;
+    font-weight: bold;
+    background-color: rgb(61, 61, 61);
+    border: 2px solid white;
+    border-radius: 12px;
+    padding: 9px;
+    margin: 5px;
+    
+}
+.song-tags-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: end;
+    width: 100%;
+    margin: 20px;
+}
+
+.album-artist-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    font-size: 15pt;
+}
+
+.alb-art-divider {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.album-name {
+    background-color: rgb(78, 79, 235);
+    padding: 5px;
+}
+
+.artist-name {
+    background-color: rgb(78, 79, 235);
+    padding: 5px;
+}
+
+.additional-information-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.recommended-cover {
+    width: 400px; height: 400px;
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MusicMatch</title>
+    <link rel="stylesheet" href="../searchresult.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
+    <link rel="icon" href="../logo.png" type="image/png">
+</head>
+
+<body>
+    <header class="nonuser">
+        <h1 class="logo"><a href="nonuserlanding.html">MusicMatch</a></h1>
+        <form name="searching" action="searchresult.html" method="GET">
+            <div class="searchcontainer">
+                <div class="search">
+                    <span class="search-icon material-symbols-outlined">search</span>
+                    <input class="search-input" type="search" id="name" name="name" placeholder="Search">
+                </div>
+                <select name="type" id="type">
+                    <option value="recording">Song Name</option>
+                    <option value="artist">Artist</option>
+                    <option value="release-group">Album</option>
+                </select>
+                <button type="submit">Search</button>
+            </div>
+        </form>
+        <nav>
+            <ul>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Signup</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="main section">
+        <div class="main content" id = "main-content">
+            
+        </div>
+        <div class="side right">
+            <nav>
+                <h2>History</h2>
+                <ul class="artist" id="searches">
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <footer></footer>
+    <script src="../onEntityLoad.js" type="module"></script>
+    <script src="../functionsAll.js" type="module"></script>
+</body>
+
+</html>
