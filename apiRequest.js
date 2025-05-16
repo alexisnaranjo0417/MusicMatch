@@ -1,14 +1,12 @@
-import displayResultsArt, {generateArtDetailsHTML} from "./artist.js"
+import displayResultsArt, {generateArtDetailsHTML, getRecommendedArtists} from "./artist.js"
 import displayResultsAlb, {generateAlbDetailsHTML, getRecommendedAlbums} from "./album.js"
 import displayResultsRec, {generateRecDetailsHTML, getRecommendedSongs} from "./recording.js"
-import { encodeSpacesToPlus } from "./helpers.js"
 
 //handles api request for search and displays results, relevant js functionsAll.js
 export default function apiRequestSearch(typeName, name)
 {
 	//requests 50 entities for search results
     //TODO: changed to 5, change back to 50 when done testing
-    name = encodeSpacesToPlus(name);
     const requestUrl = 'https://musicbrainz.org/ws/2/' + typeName + '?query=' + name + '&inc=tags+user-ratings&limit=50&fmt=json';
 
 		fetch(requestUrl, {
@@ -18,7 +16,7 @@ export default function apiRequestSearch(typeName, name)
 		})
 		.then((response) => response.json())
 		.then((data) => {
-			downloadJSONResponse(data); //uncomment if you want to see json for results returned used by search
+			//downloadJSONResponse(data); //uncomment if you want to see json for results returned used by search
 			if (typeName == "recording")
 			{
 				console.log(data.recordings);			
@@ -70,16 +68,16 @@ export async function apiRequestDetails(type, ID)
         let data = await response.json();
         //downloadJSONResponse(data); //uncomment line if want to download respective JSON for entity
         if (type == 'recording') {
-            generateRecDetailsHTML(data);
+            await generateRecDetailsHTML(data);
         }
         else if (type == 'release-group'){
             let releaseGroupData = data;
             let releaseData = await apiRequestReleaseData(releaseGroupData.releases[0].id);
             await new Promise(resolve => setTimeout(resolve, 1000)); //'sleeping' for 1 second for API rate limit
-            generateAlbDetailsHTML(releaseGroupData, releaseData);
+            await generateAlbDetailsHTML(releaseGroupData, releaseData);
         }
         else {
-            generateArtDetailsHTML(data);
+            await generateArtDetailsHTML(data);
         }
 
     }
@@ -139,7 +137,7 @@ export function apiRequestRecommendatons(type, tagsQuery){
     })
     .then((response) => response.json())
     .then((data) => {
-        //downloadJSONResponse(data); //uncomment if you want to see json for results returned used by search
+        downloadJSONResponse(data); //uncomment if you want to see json for results returned used by search
         if (type == "recording")
         {
             getRecommendedSongs(data);
@@ -147,6 +145,9 @@ export function apiRequestRecommendatons(type, tagsQuery){
         else if (type == "release-group")
         {
             getRecommendedAlbums(data);
+        }
+        else {
+            getRecommendedArtists(data);
         }
     })
 }

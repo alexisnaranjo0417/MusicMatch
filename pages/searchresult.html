@@ -3,6 +3,7 @@
 
 <head>
     <title>MusicMatch</title>
+    <link rel="stylesheet" href="../header.css">
     <link rel="stylesheet" href="../searchresult.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
     <link rel="icon" href="../logo.png" type="image/png">
@@ -10,7 +11,7 @@
 
 <body>
     <header class="nonuser">
-        <h1 class="logo"><a href="nonuserlanding.html">MusicMatch</a></h1>
+        <h1 class="logo"><a href="landing.html">MusicMatch</a></h1>
         <form name="searching">
             <div class="searchcontainer">
                 <div class="search">
@@ -23,12 +24,12 @@
                     <option value="release-group">Album</option>
                 </select>
                 <button id="search-button">Search</button>
-                <input type="submit" value="Clear" onclick="clearForm()">
+                <button type="button" class="clear-btn" onclick="clearForm()">Clear</button>
             </div>
             <div id="validateType"></div>
             <div id="validateName"></div>
         </form>
-        <nav>
+        <nav id="navigation">
             <ul>
                 <li id="log"><a href="login.html">Login</a></li>
                 <li id="sign"><a href="signup.html">Signup</a></li>
@@ -50,7 +51,8 @@
                     <input type="radio" name="type" value="release"> Album
                 </label>
                 <label>
-			        <input type="text" id="filterText" name="filterText"><button id='filter-button'>Filter</button>
+			<input type="text" id="filterText" name="filterText" style = "color: white; background-color: rgb(61, 61, 61);">
+			<button id='filter-button'>Filter</button>
                 </label>
             </div>
             <div class="searchResults" id="results-container"></div>
@@ -66,7 +68,7 @@
 
     <footer></footer>
     <script src="../functionsAll.js" type="module"></script>
-    <script src="../search-user.js" type="module"></script>
+    <script src="../user.js" type="module"></script>
 </body>
 
 </html>

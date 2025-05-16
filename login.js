@@ -1,5 +1,5 @@
-import { auth, signInWithEmailAndPassword } from './firebase_FR.js'
-import { GoogleAuthProvider, signInWithPopup  } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js'
+import { auth } from './firebase.js'
+import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js'
 
 const login = document.getElementById('login');
 login.addEventListener('click', function(e) {

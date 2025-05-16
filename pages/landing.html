@@ -3,7 +3,8 @@
 
 <head>
     <title>MusicMatch</title>
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="../landing.css">
     <link rel="stylesheet" href="../nonuserlanding.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
     <link rel="icon" href="../logo.png" type="image/png">
@@ -12,7 +13,7 @@
 <body>
     <header>
         <h1 class="logo"><a href="landing.html">MusicMatch</a></h1>
-        <form name="searching" action="searchresult.html" method="GET">
+        <form name="searching" id="searching" action="searchresult.html" method="GET">
             <div class="searchcontainer">
                 <div class="search">
                     <span class="search-icon material-symbols-outlined">search</span>
@@ -26,35 +27,41 @@
                 <button type="submit">Search</button>
             </div>
         </form>
-        <nav>
-            <ul class="user">
-                <li id="user-photo" style="background-image: url('../placeholders/user.png'); background-size: cover"><a href="pages/userprofile.html"></a></li>
-                <span id="user-email"></span>
-                <button id="logout-btn">Log Out</button>
+        <nav id="navigation">
+            <ul>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Signup</a></li>
             </ul>
         </nav>
     </header>
 
     <section class="main section">
-        <div class="main content">
-            <div class="landing section">
-                <div class="name logo">
-                    <h1 class="site name">MusicMatch</h1>
-                    <h1 class="logo"></h1>
-                </div>
-                <div class="about us">
-                    <h1 class="header">About us</h1>
-                    <h1 class="text">
-                        We are a group of seven students that came together to create a web application with our love for music. 
-                        The Music Match web application allows users to visually see their music preferences along with those of other users, 
-                        by letting them search for Artists, Albums, or Songs and see recommended results. With our extensive catalogue of music, we
-                        allow enjoyers of music to extend their own catalogue by finding music they may have never found if not for our website. 
-                        Our hope with this app is to allow fans of music to find a new listen or for artist to find new inspiration. MusicMatch
-                        is the place you come to match the music you enjoy.
-                    </h1>
-                </div>
-            </div>
-            <div class="searchResults" id="results-container"></div>
+        <div class="front center">
+            <h1>Popular Artist</h1>
+            <nav class="popular artists">
+                <ul id="popular-artists">
+                    <li style="background-image: url('../placeholders/MM_TaylorSwift.jpg'); background-size: cover"><a href="">Taylor Swift</a></li>
+                    <li style="background-image: url('../placeholders/MM_TheWeeknd.jpg'); background-size: cover"><a href="">The Weeknd</a></li>
+                    <li style="background-image: url('../placeholders/MM_BadBunny.jpg'); background-size: cover"><a href="">Bad Bunny</a></li>
+                </ul>
+            </nav>
+            <h1>Popular Albums</h1>
+            <nav class="popular albums">
+                <ul id="popular-albums">
+                    <li style="background-image: url('../placeholders/TheTorturedPoets.jpg'); background-size: cover"><a href="">THE TORTURED POETS</a></li>
+                    <li style="background-image: url('../placeholders/HitMeHardAndSoft.jpg'); background-size: cover"><a href="">HIT ME HARD AND SOFT</a></li>
+                    <li style="background-image: url('../placeholders/ShortSweet.jpg'); background-size: cover"><a href="">Short n’ Sweet</a></li>
+
+                </ul>
+            </nav>
+            <h1>Popular Songs</h1>
+            <nav class="popular songs">
+                <ul id="popular-songs">
+                    <li style="background-image: url('../placeholders/espresso.jpg'); background-size: cover"><a href="">Espresso</a></li>
+                    <li style="background-image: url('../placeholders/BeautifulThings.jpg'); background-size: cover"><a href="">Beautiful Things</a></li>
+                    <li style="background-image: url('../placeholders/BirdsOfAFeather.jpg'); background-size: cover"><a href="">BIRDS OF A FEATHER</a></li>
+                </ul>
+            </nav>
         </div>
         <div class="side right">
             <nav>
@@ -66,11 +73,9 @@
     </section>
 
     <footer>
-        <div>
-
-        </div>
+        <nav class="aboutus"><a href="aboutus.html">About Us</a></nav>
     </footer>
 </body>
-<script type="module" src="../user.js"></script>
+<script src="../user.js" type="module"></script>
 <script src="../functionsAll.js" type="module"></script>
 </html>

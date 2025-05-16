@@ -3,6 +3,7 @@
 
 <head>
     <title>MusicMatch</title>
+    <link rel="stylesheet" href="../header.css">
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
     <link rel="icon" href="../logo.png" type="image/png">
@@ -10,8 +11,8 @@
 
 <body>
     <header class="nonuser">
-        <h1 class="logo"><a href="nonuserlanding.html">MusicMatch</a></h1>
-        <form name="searching" action="searchresult.html" method="GET">
+        <h1 class="logo"><a href="landing.html">MusicMatch</a></h1>
+        <form name="searching" id = "searching" action="searchresult.html" method="GET">
             <div class="searchcontainer">
                 <div class="search">
                     <span class="search-icon material-symbols-outlined">search</span>
@@ -25,12 +26,18 @@
                 <button type="submit">Search</button>
             </div>
         </form>
+        <nav id="navigation">
+            <ul>
+                <li id="log"><a href="login.html">Login</a></li>
+                <li id="sign"><a href="signup.html">Signup</a></li>
+            </ul>
+        </nav>
         <nav>
         </nav>
     </header>
 
-    <section class="main section">        
-        <div class="main content">
+    <section class="main-section">        
+        <div class="main-content">
             <div id="content_container">
                 <div id="form_container">
                     <div id="form_header_container">
@@ -39,7 +46,7 @@
     
                     <div id="form_content_container">
                         <div id="form_content_inner_container">
-                            <input type="text" id="full_name" placeholder="Full name">
+                            <input type="text" id="user-name" placeholder="Username">
                             <input type="email" id="email" placeholder="Email">
                             <input type="password" id="password" placeholder="New Password">    
                             <div id="button_container">

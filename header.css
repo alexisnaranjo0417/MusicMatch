@@ -1,0 +1,172 @@
+header{
+    background-color: black;
+    margin: 0px;
+    margin-right: 0;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+header nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+header nav ul{
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    margin-right: 40px;
+}
+header nav ul li{
+    margin: 10px;
+    border-radius: 100px;
+    background-color: rgb(61, 61, 61);
+}
+header nav ul li a{
+    margin: 10px;
+    padding: 0px;
+    display: block;
+}
+header .logo{
+    display: flex;
+    align-items: center;
+}
+header .logo a {
+    background-image: url("logo.png");
+    background-size: 90px;
+    background-repeat: no-repeat;
+    color: white;
+    text-decoration: none;
+    display: block;
+    height: 65px;
+    width: 140px;
+    font-size: 24px;
+    font-weight: bold;
+    padding-left: 100px;
+    line-height: 65px;
+}
+nav{
+    margin-left: auto;
+}
+nav ul{
+    display: flex;
+    flex-direction: row;
+    margin-right: 2%;
+}
+nav ul a{
+    list-style-type: none;
+    text-decoration: none;
+    color: inherit;
+}
+li{
+    margin-right: 2%;
+    display: inline-block;
+}
+form[name="searching"] {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+form[name="searching"] button {
+    cursor: pointer;
+}
+.searchcontainer{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.search{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+.search-input{
+    background-color: rgb(61, 61, 61);
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    width: 100%;
+    min-width: 400px;
+    height: 50px;
+}
+select,
+button {
+    background-color: rgb(61, 61, 61);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 25px;
+}
+::placeholder{
+    color: white;
+}
+.user{
+    display: flex;
+    align-items: center;
+    margin-right: 40px;
+}
+.usercontainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.userphoto{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+.userphoto a{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+.useremail {
+    font-size: 12px;
+    color: white;
+    text-align: center;
+}
+.logoutcontainer{
+    display: flex;
+    align-items: center;
+}
+.logoutbtn{
+    font-size: 12px;
+    padding: 12px;
+    background-color: rgb(61, 61, 61);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    height: fit-content;
+}
+::placeholder{
+    color: white;
+}
+@media (max-width: 1300px){
+    header{
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    form[name="searching"] {
+        margin: auto;
+    }
+    header nav{
+        margin: 10px auto;
+    }
+    .searchcontainer{
+        margin: 10px auto;
+        width: 80%;
+    }
+}
+@media (max-width: 730px){
+    .search-input{
+        min-width: 300px;
+    }
+}

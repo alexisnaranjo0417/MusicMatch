@@ -1,11 +1,14 @@
-import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from './firebase_FR.js'
+import { auth, setUserData } from './firebase.js'
+import { createUserWithEmailAndPassword, updateProfile } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js'
+import { downloadJSONResponse } from './helpers.js';
 
 const register = document.getElementById("register")
 register.addEventListener("click", function(e){
     e.preventDefault();
     const email = document.getElementById('email').value
     const password = document.getElementById('password').value
-    const full_name = document.getElementById('full_name').value
+    const userName = document.getElementById('user-name').value
+    const profilePhoto = "../placeholders/user.jpg"
 
     // Validate input fields
     if (validate_email(email) == false || validate_password(password) == false) {
@@ -13,27 +16,33 @@ register.addEventListener("click", function(e){
     return
     // Don't continue running the code
     }
-    if (validate_field(full_name) == false) {
-        alert('Please enter your full name')
+    if (validate_field(userName) == false) {
+        alert('Please enter a valid username')
         return
     }
 
     //Auth and register user
     createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      updateProfile(auth.currentUser, { displayName: full_name })
-      .catch((error) => {
+    .then(async (userCredential) => {
+      try {
+        //downloadJSONResponse(userCredential); // Userdate For reference
+
+        const user = userCredential.user;
+        await updateProfile(auth.currentUser, { displayName: userName, photoURL: profilePhoto });
+        await setUserData(user.uid, userName, user.email, profilePhoto);
+
+        alert("ACCOUNT CREATED");
+        window.location.href = 'landing.html';
+      }
+      catch (error) {
         const errorMessage = error.message;
         console.log(error);
-      });
-      alert("ACCOUNT CREATED");
-      window.location.href = 'landing.html'
+      }
     })
     .catch((error) => {
       const errorMessage = error.message;
       console.log(errorMessage);
-    })     
+    });
 });
 
 function validate_email(email) {
@@ -49,7 +58,7 @@ function validate_email(email) {
 
 function validate_password(password) {
   //password must be at least 8 charaters long
-  if (password < 8) {
+  if (password.length < 8) {
     return false
   } else {
     return true
@@ -57,7 +66,7 @@ function validate_password(password) {
 }
 
 function validate_field(field) {
-  if (field == null) {
+  if (field === null || field === undefined) {
     return false
   }
 

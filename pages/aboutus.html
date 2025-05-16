@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MusicMatch</title>
+    <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="../landing.css">
+    <link rel="stylesheet" href="../nonuserlanding.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
+    <link rel="icon" href="../logo.png" type="image/png">
+</head>
+
+<body>
+    <header>
+        <h1 class="logo"><a href="landing.html">MusicMatch</a></h1>
+        <form name="searching" id="searching" action="searchresult.html" method="GET">
+            <div class="searchcontainer">
+                <div class="search">
+                    <span class="search-icon material-symbols-outlined">search</span>
+                    <input class="search-input" type="search" id="name" name="name" placeholder="Search">
+                </div>
+                <select name="type" id="type">
+                    <option value="recording">Song Name</option>
+                    <option value="artist">Artist</option>
+                    <option value="release-group">Album</option>
+                </select>
+                <button type="submit">Search</button>
+            </div>
+        </form>
+        <nav id="navigation">
+            <ul>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Signup</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="main section">
+        <div class="main content">
+            <div class="landing section">
+                <div class="name logo">
+                    <h1 class="site name">MusicMatch</h1>
+                    <h1 class="logo"></h1>
+                </div>
+                <div class="about us">
+                    <h1 class="header">About us</h1>
+                    <h1 class="text">
+                        We are a group of seven students that came together to create a web application with our love for music. 
+                        The Music Match web application allows users to visually see their music preferences along with those of other users, 
+                        by letting them search for Artists, Albums, or Songs and see recommended results. With our extensive catalogue of music, we
+                        allow enjoyers of music to extend their own catalogue by finding music they may have never found if not for our website. 
+                        Our hope with this app is to allow fans of music to find a new listen or for artist to find new inspiration. MusicMatch
+                        is the place you come to match the music you enjoy.
+                    </h1>
+                </div>
+            </div>
+            <div class="searchResults" id="results-container"></div>
+        </div>
+        <div class="side right">
+            <nav>
+                <h2>History</h2>
+                <ul class="artist" id="searches">                    
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <footer>
+        <div>
+
+        </div>
+    </footer>
+</body>
+<script src="../user.js" type="module"></script>
+<script src="../functionsAll.js" type="module"></script>
+</html>

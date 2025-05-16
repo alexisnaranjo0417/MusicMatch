@@ -47,70 +47,72 @@ body{
     padding: 0px;
     display: block;
 }
-.main.content{
+.front.center{
     /*background-color: rgb(6, 143, 255);*/
     background-color: black;
     margin: 5px;
     flex: 1;
     text-align: center;
+}
+.front.center nav{
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
 }
-footer{
-    background-color: black;
-    height: 40px;
-    margin: 0;
-    margin-bottom: 0px;
-    width: 100%;
-}
-.landing.section{
-    background-color: rgb(61, 61, 61);
-    height: 800px;
-    width: 90%;
-    max-width: 1250px;
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    height: auto;
-    padding: 20px;
-}
-.name.logo{
+.front.center nav ul{
+    list-style-type: none;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    margin: 0px;
+    padding: 0px;
 }
-.name.logo .site.name{
-    font-size: 70px;
-    height: 100px;
-    margin-right: auto;
-    margin-left: 25%;
-}
-.name.logo .logo{
-    background-image: url("logo.png");
-    background-size: 180px;
-    background-repeat: no-repeat;
-    margin-left: auto;
-    margin-right: 10%;
-    height: 130px;
+.front.center nav ul li{
+    margin: 20px;
     width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: rgb(6, 143, 255);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
-.about.us{
-    margin-top: 100px;
-    border:1px solid black;
-    padding: 10px;
+.front.center nav ul :hover{
+    transform: scale(1.05);
 }
-.about.us h1.header{
-    width: auto;
-    text-align: left;
+.front.center nav ul li a{
+    width: 200px;
+    height: 200px;
+    display: block;
+    margin-top: auto;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 425px;
 }
-.about.us h1.text{
-    width: 95%;
-    max-width: 1150px;
-    margin-right: 2% auto;
-    text-align: left;
+footer{
+    background-color: black;
+    text-align: center;
+    margin: 0px;
 }
-@media (max-width: 1300px){
+.aboutus{
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 100px;
+    background-color: rgb(61, 61, 61);
+    padding: 10px 20px;
+}
+.aboutus a{
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+}
+@media (max-width: 1365px){
+    h1.logo {
+        margin: 10px auto;
+    }
     .name.logo .site.name{
         margin: auto;
     }

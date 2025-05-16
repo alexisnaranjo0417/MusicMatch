@@ -1,6 +1,7 @@
 import { getTagsOrdered, tagsToString, getTrueTagsQuery } from "./helpers.js";
-import searchTermsSet, {viewCounts} from "./firebase.js"
+import searchTermsSet, { auth, viewCounts, entityDetailCountsGet } from "./firebase.js"
 import { apiRequestRecommendatons } from "./apiRequest.js";
+import favoriteEntity from "./favorites.js";
 //Displays up to 50 search results for recordings/songs
 //function used for to display search results, relevant js is functionsAll.js apiRequest.js
 export default async function displayResultsRec(data) //DO NOT MAKE AN API REQUEST HERE FOR (artist or album data)
@@ -15,36 +16,111 @@ export default async function displayResultsRec(data) //DO NOT MAKE AN API REQUE
 	var musicbrainzid = data.id;
 	let detailsURL = 'entitydetails.html?recordingID=' + encodeURIComponent(musicbrainzid);
 
-	let counts = await viewCounts(musicbrainzid);
+    let counts = await viewCounts(musicbrainzid);
 
 	let coverArtUrl = `https://coverartarchive.org/release-group/${data.releases[0]['release-group'].id}/front`;
 	let noCover = '../vinyl.png';
 
     itemdetails.innerHTML = 
-		`<a style="text-decoration: none; color: #ffffff" href="${detailsURL}"><div class="results">
+		`<style>
+			.results{
+				display: flex;
+				background: linear-gradient(rgb(27, 27, 31));
+				border: 1px solid #2d2d3c;
+				border-radius: 25px;
+				padding: 16px;
+				margin: 10px;
+				gap: 16px;
+				transition: transform 0.2s ease;
+			}
+                
+			.results:hover{
+				transform: scale(1.01);
+			}
+
+			.cover{
+				width: 200px;
+				height: 200px;
+				object-fit: cover;
+			}
+
+			.wholeDetails{
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				flex: 1;
+				color: #ffffff;
+			}
+
+			.nameDetails{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				width: 100%;
+				margin-bottom: 8px;
+			}
+
+			.nameDetails > div{
+				flex: 1;
+                text-align: center;
+			}
+
+			.nameDetails > div:first-child{
+				text-align: left;
+			}
+
+			.nameDetails > div:last-child{
+				text-align: right;
+			}
+
+			.tagsContainer{
+				margin: 6px 0;
+				font-size: 0.9rem;
+				color: #c7c7d9;
+			}
+
+			.tags{
+				background: rgba(255, 255, 255, 0.05);
+				padding: 6px 10px;
+				border-radius: 6px;
+				display: inline-block;
+			}
+
+			.rest{
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 0.85rem;
+				color: #aaaaaa;
+				margin-top: 10px;
+			}
+		</style>
+        <a style="text-decoration: none; color: #ffffff" href="${detailsURL}"><div class="results">
 			<img class="cover" src="${coverArtUrl}" alt="Song Cover" onerror="this.src='${noCover}';">
 			<div class="wholeDetails">
 				<div class="nameDetails">
-					<div class="name">Song: ${data.title} ${musicbrainzid}</div>
-					<div class="details">
-						<div class="artist">Artist: ${data['artist-credit'][0].name} </div>
-						<div class="date">Release Date: ${data['first-release-date']} </div>
-						<div class="date">Album: ${data.releases[0]['release-group'].title} </div>
-					</div>
+					<div class="name">Song: ${data.title}</div>
+					<div class="artist">Artist: ${data['artist-credit'][0].name} </div>
+                    <div class="date">Album: ${data.releases[0]['release-group'].title} </div>
+					<div class="date">Release Date: ${data['first-release-date']} </div>
+				</div>
+                <div class="tagsContainer">
+					<div class="tags">Tags: ${tagsList} </div>
 				</div>
 				<div class="rest">
-					<div class="tags">Tags: ${tagsList}</div>
 					<div class="userNum">${counts}</div>
 				</div>
 			</div>
 		</div></a>`;
-	
+
 	results.appendChild(itemdetails);
 }
 
 //function used to generate entity deails, relevant js is onEntityLoad.js, apiRequest.js
-export function generateRecDetailsHTML(data) {
+export async function generateRecDetailsHTML(data) {
 	let tagsObject = getTagsOrdered(data);
+    var musicbrainzid = data.id;
+    let type = "Song";
 
 	let coverArtUrl = `https://coverartarchive.org/release-group/${data.releases[0]['release-group'].id}/front`;
 	let noCover = '../vinyl.png';
@@ -66,7 +142,7 @@ export function generateRecDetailsHTML(data) {
             <div class="song-details-containter">
             <img class="cover-art" src="${coverArtUrl}" alt="Song Cover" onerror="this.src='${noCover}';">
                 <div class="song-description">
-                        ${data.title}
+                       <div id="entity-name">${data.title}</div>
                     <div class="album-artist-container">
                         <a style="text-decoration: none; color: #ffffff;" href="${albumURL}">
                             <div class="album-name">${data.releases[0]['release-group'].title}</div>
@@ -82,20 +158,35 @@ export function generateRecDetailsHTML(data) {
                             <li>Duration: ${data.length}</li>
                             <li>Release Date: ${data.releases[0].date}</li>
                             <li>Country: ${data.releases[0].country}</li>
+                            <li id="counts"></li>
+                        </ul>
+                        <div id="favorites" style="font-size: 30px;"></div>
                     </div>
                 </div>
             <div class="song-tags-container", id="song-tags-container">
                 <h1 class="song-tags-title">Song Tags</h1>
             </div>
         </div>
-        <div class="additional-information-container">
-            <h1>Recommended Records</h1>
-            <div class="recommended-tracks-container", id="recommended-tracks-container">
-                <p>Select a tag to get recommendations</p>
-            </div>
-        </div>
+        <div class="comments-recommendations-section">
+			<div class="comments-section">
+				<h1>Comments</h1>
+				<div class="comments-container">
+					<div class="input-comment-box", id="inputCommentBox"></div>
+					<div class="display-comments-container", id="display-comments-container">
+						<h2 id="default-comments-display">Loading...</h2>
+					</div>
+				</div>
+			</div>
+			<div class="additional-information-container">
+					<h1>Recommended Artists</h1>
+					<div class="recommended-artists-container", id="recommended-artists-container">
+						<p>Select a tag to get recommendations</p>
+					</div>
+			</div>
         </div>`;
     mainContent.appendChild(recDetailsHTML);
+
+    entityDetailCountsGet(musicbrainzid);
 
 	const songTagsContainer = document.getElementById("song-tags-container");
     if (tagsObject !== undefined){
@@ -138,7 +229,15 @@ export function generateRecDetailsHTML(data) {
         tagDiv.textContent = "NO TAGS";
         songTagsContainer.appendChild(tagDiv);
     }
-
+    const favoritesContainer = document.getElementById("favorites");
+        auth.onAuthStateChanged((user) => { 
+            if(user) {		
+                let favSpan = document.createElement("div");
+                favSpan.innerHTML = 'Favorite <span class="favorite" id="favorite">★</span>'
+                favoritesContainer.appendChild(favSpan);
+                favoriteEntity(musicbrainzid, user.uid, coverArtUrl, data.title, type);
+            }
+        });
 }
 
 export function getRecommendedSongs(data) {

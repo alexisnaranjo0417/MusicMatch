@@ -2,53 +2,66 @@ import apiRequestSearch from "./apiRequest.js"
 import searchTermsSet, {recentSearches} from "./firebase.js"
 import displayResultsAlb from "./album.js"
 import displayResultsRec from "./recording.js"
+import { encodeSpacesToPlus } from "./helpers.js"
+
+const searchButton = document.getElementById("search-button")
 
 document.addEventListener("DOMContentLoaded", function() {
 	recentSearches();
 	let params = getUrlParams();
 	let name = params.get("name");
 	let typeName = params.get("type");
-	document.getElementById("name").value = name;
-	document.getElementById("type").value = typeName;
-	performUrlSearch();
+	if(name && typeName)
+	{
+		document.getElementById("name").value = name;
+		document.getElementById("type").value = typeName;
+		triggerEvent( searchButton, 'click');
+	}
 });
 
 function getUrlParams() {
 	const params = new URLSearchParams(window.location.search);
 	return params;
-  }
+}
   
-  function performUrlSearch() {
-	const params = getUrlParams();
-	const name = params.get("name");
-	const typeName = params.get("type");
-  
-	if (name && typeName) {
-	  var output = document.getElementById("results-container");
-	  output.innerHTML = "<p>Results</p>";
-	  searchTermsSet(name, typeName);
-	  apiRequestSearch(typeName, name);
-	} else {
-	  document.getElementById("results-container").innerHTML
-	}
-  }
+function triggerEvent (elem, event) {
+    var clickEvent = new Event( event );
+    elem.dispatchEvent( clickEvent );
+}
 
-const searchButton = document.getElementById("search-button")
 searchButton.addEventListener("click", function(e){
 	e.preventDefault();
 	var output = document.getElementById("results-container");
 	output.innerHTML = "<p>Results</p>";
 	var name = document.searching.name.value;
 	var typeName = document.searching.type.value;
+	//for checking if searching values equal param values to determine if to history.pushState()
+	var urlparams = getUrlParams();
+	var urlParamName = urlparams.get("name");
+	var urlParamType = urlparams.get("type");
 			
-	if(name.length>1) {
+	if(name.length>1 && name !== undefined) {
+		console.log(name !== urlParamName || typeName !== urlParamType)
+		if (name !== urlParamName || typeName !== urlParamType) {
+			var newUrlParamName = encodeSpacesToPlus(name); //using different var to not overwrite name var which is saved to rtdb
+			const currentPage = window.location.pathname;
+			const newURL = `${currentPage}?name=${newUrlParamName}&type=${typeName}`;
+			history.pushState({}, '', newURL); //update url without reloading
+		}
+
 		searchTermsSet(name, typeName);
 		apiRequestSearch(typeName, name);		
 	}	
 	else {
-		//document.getElementById("displayWarning").innerHTML = "<p>Your search query: " + name + " is not long enough</p>";
+		document.getElementById("results-container").innerHTML = "<p>Please enter a search term.</p>";
 		console.log("Too short");
 	}
+});
+
+window.addEventListener("popstate", function() {
+	//reload page when forward or back button is pressed with updated urlparams. 
+	//this triggers the first DOMContentLoaded event listener
+	this.location.reload(); 
 });
 
 const filterButton = document.getElementById("filter-button")
@@ -136,12 +149,4 @@ if (filterButton != null){
 		
 function clearForm() {
 	document.getElementById("searching").reset();
-}
-
-function displaySearches(data) {
-	var output = document.getElementById("searches");
-	let listItem = document.createElement("li");
-
-	listItem.innerHTML = '<a href="">' + data.name + '</a>';			
-	output.appendChild(listItem);
 }
